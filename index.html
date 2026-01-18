@@ -555,16 +555,52 @@
 
 
 
-    /* FAQ */
-    .faq{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 14px;
-    }
-    @media (max-width: 980px){
-      .faq{grid-template-columns: 1fr;}
-    }
+   /* FAQ */
+.faq{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+@media (max-width: 980px){
+  .faq{grid-template-columns: 1fr;}
+}
+
+.faq-item{
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.10);
+  padding: 14px 14px;
+}
+
+.faq-item summary{
+  cursor:pointer;
+  list-style:none;
+  font-weight:700;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+
+.faq-content{
+  overflow:hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: max-height .28s ease, opacity .22s ease, transform .22s ease;
+  will-change: max-height, opacity, transform;
+}
+
+.faq-item[open] .faq-content{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.faq-content p{
+  margin:10px 0 0 0;
+  color: var(--muted);
+  line-height:1.55;
+  font-size:14px;
+}
+
     details{
       border-radius: var(--radius);
       background: rgba(255,255,255,.05);
@@ -1036,8 +1072,9 @@
       </p>
 
       <div class="faq">
-        <details class="reveal">
+        <details class="faq-item reveal">
           <summary>Kann wirklich jeder Verein Events erstellen?</summary>
+          <div class="faq-content">
           <p>Ja. Leylix ist als offene Plattform gedacht. Ihr könnt kleine und große Events erstellen und direkt veröffentlichen.
             Ladet euch die Leylix App im App Store oder Play Store herunter und erstellt in wenigen Minuten euer erstes Event. Der Erfolg beginnt genau hier.</p>
 <div class="app-cta">
@@ -1050,28 +1087,33 @@
         
 
 
-        <details class="reveal">
+        <details class="faq-item reveal">
           <summary>Welche Ticketarten können wir anbieten?</summary>
+          <div class="faq-content">
           <p>Ihr könnt Ticketarten wie Stehplatz, Sitzplatz, VIP, Gruppe A/B/C, Frühbucher oder Ehrenkarten definieren und mit einem eigenen Preis versehen.</p>
         </details>
 
-        <details class="reveal">
+        <details class="faq-item reveal">
           <summary>Wie funktioniert der Einlass?</summary>
+          <div class="faq-content">
           <p>Der Einlass kann per QR-Scan erfolgen. Das ist schnell, übersichtlich und reduziert Fehler gegenüber Papierlisten.</p>
         </details>
 
-        <details class="reveal">
+        <details class="faq-item reveal">
           <summary>Bekommen kleine Vereine wirklich Auswertungen?</summary>
+          <div class="faq-content">
           <p>Ja. Genau das ist der Punkt. Leylix gibt auch kleinen Veranstaltern Transparenz, damit aus dem nächsten Event ein besseres Event wird.</p>
         </details>
 
-        <details class="reveal">
+        <details class="faq-item reveal">
           <summary>Ist Leylix nur für Karneval?</summary>
+          <div class="faq-content">
           <p>Nein. Karneval ist ein perfekter Start, aber ihr könnt genauso Sommerfeste, Vereinsabende, Spendenabende, Turniere und viele weitere Eventtypen abbilden.</p>
         </details>
 
-        <details class="reveal">
+        <details class="faq-item reveal">
           <summary>Müssen wir eine Website haben?</summary>
+          <div class="faq-content">
           <p>Nein. Ihr könnt eure Events direkt über Leylix bewerben, Tickets verkaufen und Informationen bereitstellen.</p>
         </details>
       </div>
@@ -1326,6 +1368,44 @@
   });
 })();
 
+// --- FAQ: nur eine Box offen (verhindert "nebenan geht auch auf") ---
+(function(){
+  const faqDetails = document.querySelectorAll('#faq details');
+  faqDetails.forEach(d => {
+    d.addEventListener('toggle', () => {
+      if (!d.open) return;
+      faqDetails.forEach(other => {
+        if (other !== d) other.removeAttribute('open');
+      });
+    });
+  });
+})();
+
+    // --- FAQ Smooth Height (setzt max-height dynamisch) ---
+(function(){
+  const items = document.querySelectorAll('#faq details.faq-item');
+  items.forEach(d => {
+    const content = d.querySelector('.faq-content');
+    if(!content) return;
+
+    const setH = () => {
+      if (d.open) content.style.maxHeight = content.scrollHeight + 'px';
+      else content.style.maxHeight = '0px';
+    };
+
+    // initial
+    setH();
+
+    d.addEventListener('toggle', () => {
+      // kurz warten bis <details> open gesetzt ist
+      requestAnimationFrame(setH);
+    });
+
+    window.addEventListener('resize', () => {
+      if(d.open) content.style.maxHeight = content.scrollHeight + 'px';
+    });
+  });
+})();
 
 
   </script>
