@@ -632,6 +632,46 @@
       pointer-events:none;
     }
 
+    .app-cta{
+  display:flex;
+  justify-content:center;
+  margin-top:16px;
+}
+
+.btn-store{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:12px 16px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.16);
+  background: linear-gradient(135deg, rgba(146,193,255,.22), rgba(186,122,255,.18));
+  color: rgba(255,255,255,.92);
+  text-decoration:none;
+  font-weight:750;
+  font-size:14px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.35);
+  transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.btn-store:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,.24);
+  background: linear-gradient(135deg, rgba(146,193,255,.28), rgba(186,122,255,.22));
+}
+
+.btn-store:active{
+  transform: translateY(0px);
+}
+
+.btn-store .mini{
+  font-size:12px;
+  font-weight:700;
+  color: rgba(255,255,255,.78);
+}
+
+
 
   </style>
 </head>
@@ -998,8 +1038,16 @@
       <div class="faq">
         <details class="reveal">
           <summary>Kann wirklich jeder Verein Events erstellen?</summary>
-          <p>Ja. Leylix ist als offene Plattform gedacht. Ihr könnt kleine und große Events erstellen und direkt veröffentlichen.</p>
+          <p>Ja. Leylix ist als offene Plattform gedacht. Ihr könnt kleine und große Events erstellen und direkt veröffentlichen.
+            Ladet euch die Leylix App im App Store oder Play Store herunter und erstellt in wenigen Minuten euer erstes Event. Der Erfolg beginnt genau hier.</p>
         </details>
+        <div class="app-cta">
+  <a class="btn-store" href="#" id="openLeylixStore" aria-label="Leylix App öffnen">
+    <span>📲 Leylix App öffnen</span>
+    <span class="mini">App Store / Play Store</span>
+  </a>
+</div>
+
 
         <details class="reveal">
           <summary>Welche Ticketarten können wir anbieten?</summary>
@@ -1247,6 +1295,36 @@
     window.__tickerResizeT = setTimeout(build, 120);
   });
 })();
+
+    // --- Store Smart Redirect (iOS -> App Store, Android -> Play Store, sonst -> leylix.com) ---
+(function(){
+  const btn = document.getElementById('openLeylixStore');
+  if(!btn) return;
+
+  // TODO: Hier deine echten Links eintragen
+  const IOS_APP_STORE_URL = "https://apps.apple.com/app/idDEINE_APP_ID";
+  const ANDROID_PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=DEIN.PACKAGE";
+  const FALLBACK_URL = "https://leylix.com";
+
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+    const isAndroid = /Android/i.test(ua);
+    const isIOS = /iPhone|iPad|iPod/i.test(ua);
+
+    if(isIOS){
+      window.location.href = IOS_APP_STORE_URL;
+      return;
+    }
+    if(isAndroid){
+      window.location.href = ANDROID_PLAY_STORE_URL;
+      return;
+    }
+    window.location.href = FALLBACK_URL;
+  });
+})();
+
 
 
   </script>
