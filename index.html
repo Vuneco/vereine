@@ -1,0 +1,1254 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0f1a" />
+
+  <!-- SEO -->
+  <title>Leylix für Vereine: Karneval & Vereins-Events erstellen, Tickets verkaufen, Auswertungen erhalten</title>
+  <meta name="description" content="Leylix ist die offene Plattform für Vereine und Veranstalter: Karnevalssitzung, Party, Sommerfest oder Spendenabend. Events erstellen, Tickets verkaufen, Einlass per QR und echte Auswertungen – ohne Verträge, ohne Hürden." />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Leylix für Vereine – Karneval & Vereins-Events. Einfach starten." />
+  <meta property="og:description" content="Events erstellen, Tickets verkaufen, QR-Einlass und Auswertungen. Für kleine und große Vereine – ohne Verträge, ohne Hürden." />
+  <meta property="og:type" content="website" />
+  <!-- Optional: später setzen -->
+  <!-- <meta property="og:image" content="https://deine-domain.de/assets/og-vereine.webp" /> -->
+
+  <!-- Minimal JSON-LD (FAQ kommt weiter unten als eigenes Script) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Leylix",
+    "url":"https://leylix.com",
+    "logo":"https://leylix.com/assets/leylix-logo.png"
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#070a12;
+      --bg2:#0b0f1a;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.08);
+      --stroke:rgba(255,255,255,.12);
+      --stroke2:rgba(255,255,255,.18);
+      --txt:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --muted2:rgba(255,255,255,.56);
+      --accent:rgba(146, 193, 255, .95);
+      --accent2:rgba(186, 122, 255, .75);
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+      --radius:22px;
+      --radius2:28px;
+      --max:1180px;
+      --navH:70px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--txt);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(900px 420px at 15% 10%, rgba(186,122,255,.18), transparent 60%),
+        radial-gradient(800px 380px at 90% 18%, rgba(146,193,255,.16), transparent 55%),
+        radial-gradient(900px 520px at 50% 90%, rgba(255,255,255,.06), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit}
+    .container{max-width:var(--max); margin:0 auto; padding:0 18px;}
+    .nav{
+      position:sticky; top:0; z-index:40;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(7,10,18,.55);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner{
+      height:var(--navH); display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; text-decoration:none;
+    }
+    .brand-mark{
+      width:38px; height:38px; border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), rgba(255,255,255,.08));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 10px 28px rgba(0,0,0,.45);
+      display:grid; place-items:center;
+      font-weight:800;
+      letter-spacing:.5px;
+    }
+    .brand-name{
+      display:flex; flex-direction:column; line-height:1.05;
+    }
+    .brand-name strong{font-size:14px}
+    .brand-name span{font-size:12px; color:var(--muted2)}
+    .nav-actions{display:flex; align-items:center; gap:10px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:var(--txt);
+      text-decoration:none;
+      font-weight:650;
+      font-size:14px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.20)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(146,193,255,.26), rgba(186,122,255,.20));
+      border-color: rgba(146,193,255,.28);
+    }
+    .btn.primary:hover{background: linear-gradient(135deg, rgba(146,193,255,.32), rgba(186,122,255,.24));}
+    .btn.ghost{background: transparent}
+
+    /* HERO */
+    .hero{
+      padding: 46px 0 24px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns: 1fr; gap:16px;}
+    }
+    .hero-card{
+      position:relative;
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      min-height: 470px;
+    }
+    @media (max-width: 980px){
+      .hero-card{min-height:unset;}
+    }
+    .hero-left{
+      padding: 28px 26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap: 16px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      width:fit-content;
+      font-size:12px;
+      color: var(--muted);
+    }
+    .badge .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(146,193,255,.9);
+      box-shadow: 0 0 0 4px rgba(146,193,255,.14);
+    }
+
+    /* Leylix label (Badge) */
+    .leylix-label{
+      position:absolute;
+      top:16px; right:16px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.6px;
+      text-transform: uppercase;
+    }
+
+    h1{
+      margin: 0;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -0.7px;
+    }
+    @media (max-width: 520px){
+      h1{font-size: 34px;}
+    }
+    .sub{
+      margin:0;
+      font-size:16px;
+      color: var(--muted);
+      line-height:1.55;
+      max-width: 56ch;
+    }
+    .hero-actions{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:4px;
+    }
+    .trust-row{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top: 10px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      font-size:13px;
+    }
+    .pill svg{opacity:.9}
+
+    /* HERO RIGHT – image collage */
+    .hero-right{
+      position:relative;
+      padding: 22px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      justify-content:center;
+    }
+    .collage{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .shot{
+      position:relative;
+      border-radius: 20px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      min-height: 150px;
+      box-shadow: 0 14px 34px rgba(0,0,0,.35);
+    }
+    .shot.tall{grid-row: span 2; min-height: 312px;}
+    .shot img{
+      width:100%; height:100%; object-fit:cover; display:block;
+      filter: contrast(1.06) saturate(1.05);
+      transform: scale(1.03);
+    }
+    .shot::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.28));
+    }
+    .shot .tag{
+      position:absolute; left:12px; bottom:12px;
+      padding:8px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      font-size:12px;
+      color: rgba(255,255,255,.86);
+      z-index:2;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .mini-note{
+      margin:0;
+      color: var(--muted2);
+      font-size:13px;
+      line-height:1.55;
+    }
+
+    /* SECTIONS */
+    section{padding: 46px 0;}
+    .section-title{
+      font-size: 26px;
+      margin:0 0 10px 0;
+      letter-spacing:-.3px;
+    }
+    .section-sub{
+      margin:0 0 18px 0;
+      color: var(--muted);
+      line-height:1.55;
+      max-width: 70ch;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 980px){
+      .grid3{grid-template-columns: 1fr; }
+    }
+    .card{
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+      padding: 16px;
+      overflow:hidden;
+      position:relative;
+      display:flex;
+      flex-direction:column;
+    }
+    .card:hover{border-color: rgba(255,255,255,.18);}
+    .card h3{margin:10px 0 6px 0; font-size:16px;}
+    .card p{margin:0; color: var(--muted); line-height:1.55; font-size:14px;}
+    .icon{
+      width:42px; height:42px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+    @media (max-width: 980px){
+      .split{grid-template-columns: 1fr;}
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 520px){
+      .stats{grid-template-columns: 1fr;}
+    }
+    .stat{
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .stat strong{
+      display:block;
+      font-size: 18px;
+      letter-spacing:-.2px;
+    }
+    .stat span{
+      display:block;
+      color: var(--muted2);
+      margin-top: 4px;
+      font-size: 13px;
+      line-height:1.4;
+    }
+
+    /* CTA */
+    .cta{
+      border-radius: var(--radius2);
+      background: linear-gradient(135deg, rgba(146,193,255,.14), rgba(186,122,255,.10));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+    .cta h3{margin:0; font-size:18px}
+    .cta p{margin:6px 0 0 0; color:var(--muted); max-width:70ch; line-height:1.5; font-size:14px}
+    .cta-actions{display:flex; gap:10px; flex-wrap:wrap;}
+
+
+
+    /* VIDEO */
+    .video-card{
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      margin-top: auto;
+    }
+    .video-shell{
+      width:100%;
+      max-width: 920px;
+      margin: 0 auto;
+      border-radius: 22px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.30);
+      aspect-ratio: 16 / 9;
+    }
+    .video-player{
+      width:100%;
+      height:100%;
+      display:block;
+    }
+
+    /* GALLERY */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+    .g-item{
+      position:relative;
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      cursor:pointer;
+      min-height: 150px;
+    }
+    .g-item img{width:100%; height:100%; object-fit:cover; display:block; transform: scale(1.03); filter: contrast(1.06) saturate(1.05);}
+    .g-item::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.35));
+      opacity:.95;
+    }
+    .g-item span{
+      position:absolute; left:12px; bottom:12px;
+      padding:8px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.40);
+      font-size:12px;
+      color: rgba(255,255,255,.88);
+      z-index:2;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    /* Gallery layout */
+    .g1{grid-column: span 6; min-height: 260px;}
+    .g2{grid-column: span 6; min-height: 260px;}
+    .g3{grid-column: span 4; min-height: 210px;}
+    .g4{grid-column: span 4; min-height: 210px;}
+    .g5{grid-column: span 4; min-height: 210px;}
+    @media (max-width: 980px){
+      .g1,.g2,.g3,.g4,.g5{grid-column: span 12;}
+    }
+
+    /* LIGHTBOX */
+    .lightbox{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.78);
+      display:none;
+      z-index:100;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+    }
+    .lightbox.open{display:flex;}
+    .lightbox-inner{
+      width:min(980px, 100%);
+      border-radius: 22px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 20px 80px rgba(0,0,0,.55);
+      background: rgba(255,255,255,.06);
+      position:relative;
+    }
+    .lightbox-inner img{
+      width:100%;
+      height:auto;
+      display:block;
+      background: rgba(255,255,255,.04);
+    }
+    .lb-close{
+      position:absolute; top:12px; right:12px;
+      border:1px solid rgba(255,255,255,.20);
+      background: rgba(0,0,0,.35);
+      color:#fff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight:800;
+      user-select:none;
+    }
+
+    /* PARTNER TICKER */
+    .ticker{
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      padding: 22px 0;
+      user-select: none;
+      touch-action: pan-y;
+    }
+    .ticker-track{
+      display:flex;
+      gap: 14px;
+      width: max-content;
+      will-change: transform;
+      animation: tickerMove 28s linear infinite;
+      padding: 0 14px;
+    }
+    .ticker-item{
+  display:flex;
+  flex-direction: column;     /* 🔥 wichtig */
+  align-items:center;
+  gap: 8px;
+  padding: 14px 18px;
+  min-width: 120px;           /* gibt Luft */
+  border-radius: 18px;
+  background: rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.14);
+  text-decoration:none;
+  color: var(--txt);
+  text-align:center;
+  box-shadow: 0 12px 30px rgba(0,0,0,.40);
+}
+    .ticker-item img{
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 14px;
+  background: rgba(255,255,255,.08);
+  padding: 8px;
+  border:1px solid rgba(255,255,255,.14);
+}
+
+.ticker-item span{
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,.85);
+}
+
+    .ticker:hover .ticker-track{animation-play-state: paused;}
+
+    /* Fade edges for premium look */
+    .ticker::before, .ticker::after{
+      content:"";
+      position:absolute; top:0; bottom:0;
+      width:70px;
+      pointer-events:none;
+      z-index:2;
+    }
+    .ticker::before{
+      left:0;
+      background: linear-gradient(90deg, rgba(7,10,18,1), rgba(7,10,18,0));
+    }
+    .ticker::after{
+      right:0;
+      background: linear-gradient(270deg, rgba(7,10,18,1), rgba(7,10,18,0));
+    }
+
+    @keyframes tickerMove{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(calc(-1 * var(--ticker-distance, 0px))); }
+}
+
+
+
+    /* FAQ */
+    .faq{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 980px){
+      .faq{grid-template-columns: 1fr;}
+    }
+    details{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      padding: 14px 14px;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:700;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{
+      margin:10px 0 0 0;
+      color: var(--muted);
+      line-height:1.55;
+      font-size:14px;
+    }
+
+    /* FOOTER */
+    footer{
+      padding: 26px 0 44px;
+      border-top:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.10);
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .footer-grid{grid-template-columns: 1fr;}
+    }
+    .small{color: var(--muted2); font-size: 13px; line-height:1.55;}
+    .links{display:flex; gap:12px; flex-wrap:wrap;}
+    .links a{
+      color: var(--muted);
+      text-decoration:none;
+      border-bottom:1px dashed rgba(255,255,255,.18);
+      padding-bottom:2px;
+    }
+
+    
+    /* Small helper for anchor offset (sticky nav) */
+    [data-anchor]{scroll-margin-top: calc(var(--navH) + 14px);}
+/* Reveal Animations */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.show{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* Decorative glow */
+    .glow{
+      position:absolute; inset:-60px -60px auto auto;
+      width:280px; height:280px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(146,193,255,.22), transparent 62%),
+                  radial-gradient(circle at 70% 70%, rgba(186,122,255,.18), transparent 65%);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="#" aria-label="Leylix Startseite">
+          <div class="brand-mark">L</div>
+          <div class="brand-name">
+            <strong>Leylix</strong>
+            <span>Für Vereine & Veranstalter</span>
+          </div>
+        </a>
+        <div class="nav-actions">
+          <a class="btn ghost" href="#galerie">Galerie</a>
+          <a class="btn ghost" href="#video">Video</a>
+          <a class="btn ghost" href="#partner">Partner</a>
+          <a class="btn ghost" href="#faq">FAQ</a>
+          <a class="btn primary" href="#kontakt">Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-grid">
+
+        <!-- LEFT -->
+        <div class="hero-card hero-left reveal">
+          <div class="glow"></div>
+          <div class="leylix-label">Leylix</div>
+
+          <div class="badge">
+            <span class="dot"></span>
+            <span>Karneval, Vereinsfeste, Sitzungen, Spendenabende, Partys</span>
+          </div>
+
+          <h1>Dein Verein. Dein Event. Deine Chance.</h1>
+
+          <p class="sub">
+            Leylix ist die offene Plattform für kleine und große Vereine.
+            Du kannst Events sofort veröffentlichen, Tickets verkaufen, Gäste einlassen und echte Auswertungen erhalten.
+            Ohne Verträge. Ohne Hürden. Ohne „du bist zu klein“.
+          </p>
+
+          <div class="hero-actions" id="start">
+            <a class="btn primary" href="#kontakt">Demo anfragen</a>
+            <a class="btn" href="#so-funktionierts">So funktioniert’s</a>
+          </div>
+
+          <div class="trust-row">
+            <div class="pill" title="Echte Teilnahme statt Fake-Reichweite">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17l-5-5" stroke="rgba(146,193,255,.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>QR-Einlass & Teilnahme-Nachweis</span>
+            </div>
+            <div class="pill" title="Transparenz für Veranstalter">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M4 19V5m0 14h16M8 15l3-3 3 2 6-7" stroke="rgba(186,122,255,.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Auswertungen wie die Großen</span>
+            </div>
+            <div class="pill" title="Schneller Start">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="rgba(255,255,255,.86)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>In Minuten online</span>
+            </div>
+          </div>
+
+          <p class="mini-note">
+            Tipp: Diese Seite ist ideal für Karnevalsvereine, Schützenvereine, Sportvereine, Fördervereine, Tanzgarden und alle, die Events professionell aufziehen möchten.
+          </p>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="hero-card hero-right reveal" aria-label="Vereinsbilder">
+          <div class="leylix-label">Leylix</div>
+
+          <div class="collage">
+            <!-- Ersetze die Bildpfade mit euren Bildern -->
+            <div class="shot tall">
+              <img src="/assets/vereine/karneval-1.webp" alt="Karnevalsverein auf der Bühne" />
+              <div class="tag">Karnevalssitzung</div>
+            </div>
+            <div class="shot">
+              <img src="/assets/vereine/verein-2.webp" alt="Vereinsfest mit Menschen und Atmosphäre" />
+              <div class="tag">Vereinsfest</div>
+            </div>
+            <div class="shot">
+              <img src="/assets/vereine/verein-3.webp" alt="Einlass mit QR-Tickets am Eingang" />
+              <div class="tag">QR-Einlass</div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:14px;">
+            <h3 style="margin:0 0 6px 0;">Für euch zählt morgen schon der erste Euro.</h3>
+            <p>
+              Leylix macht es möglich, dass auch kleine Vereine Tickets verkaufen, Einnahmen nachvollziehen und ihre Events sichtbar machen.
+              Genau dort beginnt Wachstum.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION: HOW IT WORKS -->
+  <section id="so-funktionierts" data-anchor>
+    <div class="container">
+      <h2 class="section-title reveal">So funktioniert Leylix für Vereine.</h2>
+      <p class="section-sub reveal">
+        Du startest nicht mit Technik-Stress, sondern mit einem klaren Ablauf. Event erstellen, Tickets verkaufen, Einlass durchführen und danach Auswertungen nutzen, um das nächste Event noch besser zu machen.
+      </p>
+
+
+
+      <div class="grid3">
+        <div class="card reveal">
+          <div class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M8 7h8M8 11h8M8 15h5M6 3h12a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2z" stroke="rgba(255,255,255,.86)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>1) Event erstellen</h3>
+          <p>Datum, Ort, Ticketarten und Infos festlegen. Privat, öffentlich oder Business – alles ist möglich.</p>
+
+<div class="video-card">
+  <div class="video-shell">
+    <video class="video-player" controls preload="metadata" playsinline
+      poster="/assets/vereine/video-event-erstellen.webp">
+      <source src="/assets/vereine/event-erstellen.mp4" type="video/mp4" />
+    </video>
+  </div>
+</div>
+</div>
+
+        <div class="card reveal">
+          <div class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M4 7h16M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" stroke="rgba(146,193,255,.9)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 11h6M9 15h6" stroke="rgba(146,193,255,.9)" stroke-width="2.1" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>2) Tickets verkaufen</h3>
+          <p>Stehplatz, Sitzplatz, VIP, Gruppe A/B/C oder Ehrenkarten – ihr definiert die Ticketlogik selbst.</p>
+<div class="video-card">
+  <div class="video-shell">
+    <video class="video-player" controls preload="metadata" playsinline
+      poster="/assets/vereine/video-event-erstellen.webp">
+      <source src="/assets/vereine/event-erstellen.mp4" type="video/mp4" />
+    </video>
+  </div>
+</div>
+        
+</div>
+
+        <div class="card reveal">
+          <div class="icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M21 10a7 7 0 1 1-7-7" stroke="rgba(186,122,255,.85)" stroke-width="2.1" stroke-linecap="round"/>
+              <path d="M22 4l-10 10-3-3" stroke="rgba(186,122,255,.85)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+
+          <h3>3) Einlass & Auswertung</h3>
+          <p>QR-Scan am Eingang, klare Übersicht und danach Auswertungen, die auch kleinen Vereinen echte Kontrolle geben.</p>
+        
+<div class="video-card">
+  <div class="video-shell">
+    <video class="video-player" controls preload="metadata" playsinline
+      poster="/assets/vereine/video-event-erstellen.webp">
+      <source src="/assets/vereine/event-erstellen.mp4" type="video/mp4" />
+    </video>
+  </div>
+</div>
+
+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: VIDEO -->
+  <section id="video" data-anchor>
+    <div class="container">
+      <h2 class="section-title reveal">Kurzer Einblick in Leylix.</h2>
+      <p class="section-sub reveal">
+        Hier kannst du ein Screenvideo einbauen, das zeigt, wie ein Event erstellt wird, wie Tickets aussehen und wie der QR-Einlass funktioniert.
+      </p>
+
+      <div class="video-card reveal">
+        <!-- Ersetze src + poster durch deine Dateien -->
+        <div class="video-shell">
+          <video class="video-player" controls preload="metadata" poster="/assets/vereine/video-poster.webp">
+            <source src="/assets/vereine/leylix-demo.mp4" type="video/mp4" />
+            Dein Browser unterstützt das Video leider nicht.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: GALLERY -->
+  <section id="galerie" data-anchor>
+    <div class="container">
+      <h2 class="section-title reveal">Galerie: Vereine & Event-Momente.</h2>
+      <p class="section-sub reveal">
+        Platzhalter: Ersetze einfach die Bildpfade durch eure echten Vereins- und Eventbilder.
+      </p>
+
+      <div class="gallery">
+        <div class="g-item g1 reveal" data-full="/assets/vereine/gallery-1.webp">
+          <img src="/assets/vereine/gallery-1.webp" alt="Karneval Moment 1" loading="lazy" />
+          <span>Karneval</span>
+        </div>
+        <div class="g-item g2 reveal" data-full="/assets/vereine/gallery-2.webp">
+          <img src="/assets/vereine/gallery-2.webp" alt="Vereinsfest Moment 2" loading="lazy" />
+          <span>Vereinsfest</span>
+        </div>
+        <div class="g-item g3 reveal" data-full="/assets/vereine/gallery-3.webp">
+          <img src="/assets/vereine/gallery-3.webp" alt="Einlass Moment 3" loading="lazy" />
+          <span>Einlass</span>
+        </div>
+        <div class="g-item g4 reveal" data-full="/assets/vereine/gallery-4.webp">
+          <img src="/assets/vereine/gallery-4.webp" alt="Bühne Moment 4" loading="lazy" />
+          <span>Bühne</span>
+        </div>
+        <div class="g-item g5 reveal" data-full="/assets/vereine/gallery-5.webp">
+          <img src="/assets/vereine/gallery-5.webp" alt="Team Moment 5" loading="lazy" />
+          <span>Team</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: PARTNER TICKER -->
+  <section id="partner" data-anchor>
+    <div class="container">
+      <h2 class="section-title reveal">Partner & Kunden.</h2>
+      <p class="section-sub reveal">
+        Logos + Namen laufen automatisch durch. Hover pausiert (Desktop). Tippen öffnet den Link.
+      </p>
+
+      <div class="ticker reveal" id="partnerTicker" aria-label="Partner Logos">
+        <div class="ticker-track" id="tickerTrack">
+
+          <!-- 1. Set -->
+          <a class="ticker-item" href="#" target="_blank" rel="noopener">
+            <img src="/assets/logos/partner1.webp" alt="Partner 1 Logo" />
+            <span>Partner 1</span>
+          </a>
+          <a class="ticker-item" href="#" target="_blank" rel="noopener">
+            <img src="/assets/logos/partner2.webp" alt="Partner 2 Logo" />
+            <span>Kunde 2</span>
+          </a>
+          <a class="ticker-item" href="#" target="_blank" rel="noopener">
+            <img src="/assets/logos/partner3.webp" alt="Partner 3 Logo" />
+            <span>Verein 3</span>
+          </a>
+          <a class="ticker-item" href="#" target="_blank" rel="noopener">
+            <img src="/assets/logos/partner4.webp" alt="Partner 4 Logo" />
+            <span>Partner 4</span>
+          </a>
+
+          <!-- 2. Set (Duplikat für Endlos-Lauf) -->
+          <a class="ticker-item" href="#" target="_blank" rel="noopener">
+            <img src="/assets/logos/partner1.webp" alt="Partner 1 Logo" />
+            <span>Partner 1</span>
+          </a>
+          <a class="ticker-item" href="#" target="_blank" rel="noopener">
+            <img src="/assets/logos/partner2.webp" alt="Partner 2 Logo" />
+            <span>Kunde 2</span>
+          </a>
+          <a class="ticker-item" href="#" target="_blank" rel="noopener">
+            <img src="/assets/logos/partner3.webp" alt="Partner 3 Logo" />
+            <span>Verein 3</span>
+          </a>
+          <a class="ticker-item" href="#" target="_blank" rel="noopener">
+            <img src="/assets/logos/partner4.webp" alt="Partner 4 Logo" />
+            <span>Partner 4</span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SECTION: ANALYTICS + TRUST -->
+  <section>
+    <div class="container">
+      <div class="split">
+        <div class="card reveal">
+          <h2 class="section-title" style="margin-top:0;">Auswertungen, die normalerweise nur die Großen haben.</h2>
+          <p class="section-sub" style="margin-bottom:0;">
+            Leylix zeigt euch nicht nur Verkäufe, sondern echte Signale: Was funktioniert, wann der Peak war, wie stark der Einlass läuft und welche Ticketarten wirklich ziehen. So wird aus einem Event ein planbares System.
+          </p>
+
+          <div class="stats">
+            <div class="stat">
+              <strong>Ticketarten-Performance</strong>
+              <span>Ihr erkennt schnell, ob VIP, Gruppe A/B oder Stehplatz wirklich angenommen wird.</span>
+            </div>
+            <div class="stat">
+              <strong>Einlass-Quote (QR)</strong>
+              <span>Ihr seht, wie viele Gäste wirklich da waren und wann der größte Andrang entsteht.</span>
+            </div>
+            <div class="stat">
+              <strong>Verkaufskurve</strong>
+              <span>Ihr erkennt Peaks und könnt Kommunikation und Planung beim nächsten Mal optimieren.</span>
+            </div>
+            <div class="stat">
+              <strong>Transparenz & Kontrolle</strong>
+              <span>Ihr habt alles in einer Ansicht und müsst nicht mehr mit Zetteln oder Excel kämpfen.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <h2 class="section-title" style="margin-top:0;">Vertrauen statt Fake.</h2>
+          <p class="section-sub" style="margin-bottom:0;">
+            In einer Zeit voller Fake-Profile und künstlicher Reichweite setzt Leylix auf echte Teilnahme, klare Prozesse und nachvollziehbare Abläufe rund um Tickets, Einlass und Veranstaltungen.
+          </p>
+
+          <div class="card" style="margin-top:14px; background: rgba(0,0,0,.18);">
+            <h3 style="margin-top:0;">Ideal für Karneval.</h3>
+            <p>
+              Karneval lebt von echten Menschen, echter Präsenz und guter Organisation.
+              Genau dafür ist Leylix gemacht: Schnell starten, fair verkaufen, sauber einlassen und danach verstehen, was wirklich funktioniert.
+            </p>
+          </div>
+
+          <div class="cta" style="margin-top:14px;">
+            <div>
+              <h3>Du willst morgen starten?</h3>
+              <p>Dann lass uns kurz sprechen. Du bekommst eine klare Demo und weißt sofort, ob Leylix für euren Verein passt.</p>
+            </div>
+            <div class="cta-actions">
+              <a class="btn primary" href="#kontakt">Kontakt</a>
+              <a class="btn" href="#faq">FAQ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" data-anchor>
+    <div class="container">
+      <h2 class="section-title reveal">FAQ für Vereine.</h2>
+      <p class="section-sub reveal">
+        Hier sind die häufigsten Fragen, die Vereine vor dem Start haben.
+      </p>
+
+      <div class="faq">
+        <details class="reveal">
+          <summary>Kann wirklich jeder Verein Events erstellen?</summary>
+          <p>Ja. Leylix ist als offene Plattform gedacht. Ihr könnt kleine und große Events erstellen und direkt veröffentlichen.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>Welche Ticketarten können wir anbieten?</summary>
+          <p>Ihr könnt Ticketarten wie Stehplatz, Sitzplatz, VIP, Gruppe A/B/C, Frühbucher oder Ehrenkarten definieren und mit einem eigenen Preis versehen.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>Wie funktioniert der Einlass?</summary>
+          <p>Der Einlass kann per QR-Scan erfolgen. Das ist schnell, übersichtlich und reduziert Fehler gegenüber Papierlisten.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>Bekommen kleine Vereine wirklich Auswertungen?</summary>
+          <p>Ja. Genau das ist der Punkt. Leylix gibt auch kleinen Veranstaltern Transparenz, damit aus dem nächsten Event ein besseres Event wird.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>Ist Leylix nur für Karneval?</summary>
+          <p>Nein. Karneval ist ein perfekter Start, aber ihr könnt genauso Sommerfeste, Vereinsabende, Spendenabende, Turniere und viele weitere Eventtypen abbilden.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>Müssen wir eine Website haben?</summary>
+          <p>Nein. Ihr könnt eure Events direkt über Leylix bewerben, Tickets verkaufen und Informationen bereitstellen.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="kontakt" data-anchor>
+    <div class="container">
+      <div class="cta reveal">
+        <div>
+          <h3>Kontakt & Demo für euren Verein.</h3>
+          <p>
+            Schreib uns kurz, was ihr plant (z. B. Karnevalssitzung, Vereinsfest, Party).
+            Wir zeigen euch Leylix in wenigen Minuten und ihr entscheidet sofort, ob es passt.
+          </p>
+          <p class="small" style="margin-top:10px;">
+            Hinweis: Hier kannst du später auch ein Formular einbauen oder direkt auf euren Kontakt-Flow verlinken.
+          </p>
+        </div>
+        <div class="cta-actions">
+          <!-- Passe diese Links an eure echten Ziele an -->
+          <a class="btn primary" href="mailto:info@leylix.com">E-Mail senden</a>
+          <a class="btn" href="https://app.leylix.com" target="_blank" rel="noopener">Zur App</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- LIGHTBOX (Galerie) -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-inner">
+      <button class="lb-close" id="lbClose" aria-label="Schließen">Schließen</button>
+      <img id="lbImg" src="" alt="Galerie" />
+    </div>
+  </div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="gap:12px;">
+            <div class="brand-mark">L</div>
+            <div class="brand-name">
+              <strong>Leylix</strong>
+              <span>Events für alle. Chancen für jeden.</span>
+            </div>
+          </div>
+          <p class="small" style="margin-top:10px;">
+            Leylix startet regional und skaliert weltweit. Events werden standortbasiert sichtbar, damit eure Region automatisch genau die richtigen Menschen erreicht.
+          </p>
+        </div>
+        <div>
+          <div class="links">
+            <a href="#so-funktionierts">So funktioniert’s</a>
+            <a href="#video">Video</a>
+            <a href="#galerie">Galerie</a>
+            <a href="#partner">Partner</a>
+            <a href="#faq">FAQ</a>
+            <a href="#kontakt">Kontakt</a>
+          </div>
+          <p class="small" style="margin-top:12px;">
+            © <span id="y"></span> Leylix. Alle Rechte vorbehalten.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FAQ JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Kann wirklich jeder Verein Events erstellen?",
+        "acceptedAnswer":{"@type":"Answer","text":"Ja. Leylix ist als offene Plattform gedacht. Vereine können kleine und große Events erstellen und direkt veröffentlichen."}
+      },
+      {
+        "@type":"Question",
+        "name":"Welche Ticketarten können wir anbieten?",
+        "acceptedAnswer":{"@type":"Answer","text":"Vereine können Ticketarten wie Stehplatz, Sitzplatz, VIP, Gruppe A/B/C, Frühbucher oder Ehrenkarten definieren und mit eigenen Preisen versehen."}
+      },
+      {
+        "@type":"Question",
+        "name":"Wie funktioniert der Einlass?",
+        "acceptedAnswer":{"@type":"Answer","text":"Der Einlass kann per QR-Scan erfolgen. Das ist schnell, übersichtlich und reduziert Fehler gegenüber Papierlisten."}
+      },
+      {
+        "@type":"Question",
+        "name":"Bekommen kleine Vereine wirklich Auswertungen?",
+        "acceptedAnswer":{"@type":"Answer","text":"Ja. Leylix gibt auch kleinen Veranstaltern Transparenz und Auswertungen, damit Events planbarer werden."}
+      }
+    ]
+  }
+  </script>
+
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.18/bundled/lenis.min.js"></script>
+<script>
+  //Ab hier ist wegen smooze scrolling! Es dürfen aber keine anderen codes für diese geste sein. Wenn doch funktioniert es nicht richtig!!!
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
+</script>
+
+
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Reveal animations
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      for (const e of entries){
+        if (e.isIntersecting){
+          e.target.classList.add('show');
+          io.unobserve(e.target);
+        }
+      }
+    }, {threshold: 0.12});
+    els.forEach(el => io.observe(el));
+
+    // gallery lightbox
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbClose = document.getElementById('lbClose');
+
+    function closeLb(){
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden','true');
+      lbImg.src='';
+    }
+
+    document.querySelectorAll('.g-item').forEach((el)=>{
+      el.addEventListener('click', ()=>{
+        const src = el.getAttribute('data-full') || el.querySelector('img')?.src;
+        if(!src) return;
+        lbImg.src = src;
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden','false');
+      });
+    });
+
+    lbClose?.addEventListener('click', closeLb);
+    lb?.addEventListener('click', (e)=>{
+      if(e.target === lb) closeLb();
+    });
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') closeLb();
+    });
+
+    // ticker pause on long press (mobile)
+    const ticker = document.getElementById('partnerTicker');
+    const track = document.getElementById('tickerTrack');
+    if(ticker && track){
+      let pressTimer = null;
+      const pause = ()=> track.style.animationPlayState = 'paused';
+      const play = ()=> track.style.animationPlayState = '';
+
+      ticker.addEventListener('touchstart', ()=>{
+        pressTimer = setTimeout(pause, 120);
+      }, {passive:true});
+      ticker.addEventListener('touchend', ()=>{
+        if(pressTimer) clearTimeout(pressTimer);
+        play();
+      });
+      ticker.addEventListener('touchcancel', ()=>{
+        if(pressTimer) clearTimeout(pressTimer);
+        play();
+      });
+    }
+
+// --- Ticker: echte Endlosschleife ohne Lücke (auto-clone + pixel distance) ---
+(function(){
+  const ticker = document.getElementById('partnerTicker');
+  const track  = document.getElementById('tickerTrack');
+  if(!ticker || !track) return;
+
+  // Nur das erste "Set" nehmen: bei dir sind die ersten 4 Items das Original-Set.
+  // Falls du mehr Originale hast: setCount entsprechend anpassen.
+  const setCount = 4;
+
+  function build(){
+    // Reset: nur original set behalten
+    const items = Array.from(track.children);
+    if(items.length > setCount){
+      for(let i = items.length - 1; i >= setCount; i--) track.removeChild(items[i]);
+    }
+
+    const base = Array.from(track.children); // Original-Set
+    const tickerW = ticker.offsetWidth;
+
+    // Clone so oft, bis mindestens 2x Containerbreite gefüllt ist
+    while(track.scrollWidth < tickerW * 2){
+      base.forEach(node => track.appendChild(node.cloneNode(true)));
+    }
+
+    // Distanz = Breite eines Sets (Pixelgenau)
+    const oneSetWidth = base.reduce((sum, el) => sum + el.offsetWidth, 0)
+      + (base.length - 1) * 14; // 14 = gap aus .ticker-track (gap: 14px)
+
+    track.style.setProperty('--ticker-distance', `${oneSetWidth}px`);
+  }
+
+  // Nach Layout aufbauen (damit offsetWidth stimmt)
+  window.addEventListener('load', build);
+  window.addEventListener('resize', () => {
+    clearTimeout(window.__tickerResizeT);
+    window.__tickerResizeT = setTimeout(build, 120);
+  });
+})();
+
+
+  </script>
+</body>
+</html>
