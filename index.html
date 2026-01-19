@@ -61,26 +61,30 @@
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      color:var(--txt);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background:
-        radial-gradient(900px 420px at 15% 10%, rgba(186,122,255,.18), transparent 60%),
-        radial-gradient(800px 380px at 90% 18%, rgba(146,193,255,.16), transparent 55%),
-        radial-gradient(900px 520px at 50% 90%, rgba(255,255,255,.06), transparent 60%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      overflow-x:hidden;
-    }
+  margin:0;
+  color:var(--txt);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background:
+    radial-gradient(900px 420px at 15% 10%, rgba(186,122,255,.18), transparent 60%),
+    radial-gradient(800px 380px at 90% 18%, rgba(146,193,255,.16), transparent 55%),
+    radial-gradient(900px 520px at 50% 90%, rgba(255,255,255,.06), transparent 60%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+  overflow-x:hidden;
+
+  padding-top: 84px; /* 👈 wichtig für fixed Nav */
+}
 
     a{color:inherit}
     .container{max-width:var(--max); margin:0 auto; padding:0 18px;}
     .nav{
-      position:sticky; top:0; z-index:9999;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      background: rgba(7,10,18,.55);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(7,10,18,.55);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
     .nav-inner{
       height:var(--navH); display:flex; align-items:center; justify-content:space-between;
       gap:14px;
