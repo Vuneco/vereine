@@ -522,6 +522,8 @@
   color: var(--txt);
   text-align:center;
   box-shadow: 0 12px 30px rgba(0,0,0,.40);
+  height: 98px;          /* ✅ einheitliche Höhe (Wert kannst du anpassen) */
+  justify-content: center;    
 
   flex: 0 0 auto;   /* ✅ wichtig für Endlos-Ticker (kein Shrink) */
 }
@@ -559,6 +561,19 @@
       right:0;
       background: linear-gradient(270deg, rgba(7,10,18,1), rgba(7,10,18,0));
     }
+
+    .ticker-item .ticker-name{
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;        /* ✅ kein Umbruch */
+  overflow: hidden;           /* ✅ verstecken */
+  text-overflow: ellipsis;    /* ✅ ... */
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,.85);
+  line-height: 1.1;
+  cursor: default;
+}
 
     @keyframes tickerMove{
   from{ transform: translateX(0); }
@@ -984,37 +999,37 @@
           <!-- 1. Set -->
           <a class="ticker-item" href="#" target="_blank" rel="noopener">
             <img src="/assets/logos/partner1.webp" alt="Partner 1 Logo" />
-            <span>Partner 1 Partner 1 Partner 1 Partner 1</span>
+            <span class="ticker-name" title="Partner 1 Partner 1 Partner 1">Partner 1 Partner 1 Partner 1</span>
           </a>
           <a class="ticker-item" href="#" target="_blank" rel="noopener">
             <img src="/assets/logos/partner2.webp" alt="Partner 2 Logo" />
-            <span>Kunde 2 Kunde 2 Kunde 2 Kunde 2</span>
+            <span class="ticker-name" title="Partner 1 Partner 1 Partner 1">Partner 1 Partner 1 Partner 1</span>
           </a>
           <a class="ticker-item" href="#" target="_blank" rel="noopener">
             <img src="/assets/logos/partner3.webp" alt="Partner 3 Logo" />
-            <span>Verein 3</span>
+            <span class="ticker-name" title="Partner 1 Partner 1 Partner 1">Partner 1 Partner 1 Partner 1</span>
           </a>
           <a class="ticker-item" href="#" target="_blank" rel="noopener">
             <img src="/assets/logos/partner4.webp" alt="Partner 4 Logo" />
-            <span>Partner 4</span>
+            <span class="ticker-name" title="Partner 1 Partner 1 Partner 1">Partner 1 Partner 1 Partner 1</span>
           </a>
 
           <!-- 2. Set (Duplikat für Endlos-Lauf) -->
           <a class="ticker-item" href="#" target="_blank" rel="noopener">
             <img src="/assets/logos/partner1.webp" alt="Partner 1 Logo" />
-            <span>Partner 1</span>
+            <span class="ticker-name" title="Partner 1 Partner 1 Partner 1">Partner 1 Partner 1 Partner 1</span>
           </a>
           <a class="ticker-item" href="#" target="_blank" rel="noopener">
             <img src="/assets/logos/partner2.webp" alt="Partner 2 Logo" />
-            <span>Kunde 2</span>
+            <span class="ticker-name" title="Partner 1 Partner 1 Partner 1">Partner 1 Partner 1 Partner 1</span>
           </a>
           <a class="ticker-item" href="#" target="_blank" rel="noopener">
             <img src="/assets/logos/partner3.webp" alt="Partner 3 Logo" />
-            <span>Verein 3</span>
+            <span class="ticker-name" title="Partner 1 Partner 1 Partner 1">Partner 1 Partner 1 Partner 1</span>
           </a>
           <a class="ticker-item" href="#" target="_blank" rel="noopener">
             <img src="/assets/logos/partner4.webp" alt="Partner 4 Logo" />
-            <span>Partner 4</span>
+            <span class="ticker-name" title="Partner 1 Partner 1 Partner 1">Partner 1 Partner 1 Partner 1</span>
           </a>
 
         </div>
