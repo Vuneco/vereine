@@ -584,15 +584,18 @@
 .faq-item summary::-webkit-details-marker{display:none}
 
 .faq-content{
-  overflow:hidden;
-  max-height: 0;
+  overflow: hidden;
+  height: 0;
   opacity: 0;
   transform: translateY(-6px);
-  transition: max-height .28s ease, opacity .22s ease, transform .22s ease;
-  will-change: max-height, opacity, transform;
+  transition:
+    height .32s ease,
+    opacity .22s ease,
+    transform .22s ease;
+  will-change: height, opacity, transform;
 }
 
-.faq-item[open] .faq-content{
+.faq-item.is-open .faq-content{
   opacity: 1;
   transform: translateY(0);
 }
@@ -1373,32 +1376,56 @@
   });
 })();
 
-    // --- FAQ Smooth Height (setzt max-height dynamisch) ---
+    // --- FAQ Smooth Accordion (stabil, jedes Mal smooth) ---
 (function(){
-  const items = document.querySelectorAll('#faq details.faq-item');
-  items.forEach(d => {
-    const content = d.querySelector('.faq-content');
-    if(!content) return;
+  const items = document.querySelectorAll('#faq .faq-item');
 
-    const setH = () => {
-      if (d.open) content.style.maxHeight = content.scrollHeight + 'px';
-      else content.style.maxHeight = '0px';
-    };
+  items.forEach(item => {
+    const summary = item.querySelector('summary');
+    const content = item.querySelector('.faq-content');
 
-    // initial
-    setH();
+    // Initial sicher schließen
+    content.style.height = '0px';
 
-    d.addEventListener('toggle', () => {
-      // kurz warten bis <details> open gesetzt ist
-      requestAnimationFrame(setH);
+    summary.addEventListener('click', e => {
+      e.preventDefault();
+
+      const isOpen = item.classList.contains('is-open');
+
+      // andere schließen
+      items.forEach(other => {
+        if(other !== item){
+          closeItem(other);
+        }
+      });
+
+      if(isOpen){
+        closeItem(item);
+      }else{
+        openItem(item);
+      }
     });
 
-    window.addEventListener('resize', () => {
-      if(d.open) content.style.maxHeight = content.scrollHeight + 'px';
-    });
+    function openItem(el){
+      const c = el.querySelector('.faq-content');
+      el.classList.add('is-open');
+
+      // von 0 → echte Höhe
+      c.style.height = c.scrollHeight + 'px';
+    }
+
+    function closeItem(el){
+      const c = el.querySelector('.faq-content');
+      el.classList.remove('is-open');
+
+      // von aktueller Höhe → 0
+      c.style.height = c.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        c.style.height = '0px';
+      });
+    }
   });
 })();
-
 
   </script>
 
