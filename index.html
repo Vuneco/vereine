@@ -1323,44 +1323,78 @@
       });
     }
 
-// --- Ticker: echte Endlosschleife ohne Lücke (auto-clone + pixel distance) ---
-(function(){
+// --- Partner Ticker: echte Endlosschleife auf Desktop + Mobile (ohne Lücken) ---
+(function () {
   const ticker = document.getElementById('partnerTicker');
-  const track  = document.getElementById('tickerTrack');
-  if(!ticker || !track) return;
+  const track = document.getElementById('tickerTrack');
+  if (!ticker || !track) return;
 
-  // Nur das erste "Set" nehmen: bei dir sind die ersten 4 Items das Original-Set.
-  // Falls du mehr Originale hast: setCount entsprechend anpassen.
+  // Anzahl deiner ORIGINAL-Items (ohne Duplikate) -> anpassen!
+  // Wenn du z.B. 10 Partner-Items im HTML hast: setCount = 10;
   const setCount = 4;
 
-  function build(){
-    // Reset: nur original set behalten
-    const items = Array.from(track.children);
-    if(items.length > setCount){
-      for(let i = items.length - 1; i >= setCount; i--) track.removeChild(items[i]);
-    }
+  function getGapPx(el) {
+    const cs = getComputedStyle(el);
+    const gap = cs.gap || cs.columnGap || "0px";
+    return parseFloat(gap) || 0;
+  }
 
-    const base = Array.from(track.children); // Original-Set
-    const tickerW = ticker.offsetWidth;
+  function resetToOriginal() {
+    const kids = Array.from(track.children);
+    for (let i = kids.length - 1; i >= setCount; i--) track.removeChild(kids[i]);
+  }
 
-    // Clone so oft, bis mindestens 2x Containerbreite gefüllt ist
-    while(track.scrollWidth < tickerW * 2){
+  function build() {
+    resetToOriginal();
+
+    const base = Array.from(track.children);
+    if (base.length === 0) return;
+
+    // WICHTIG: erst messen, wenn Bilder ihre Größe haben
+    const gap = getGapPx(track);
+    const tickerW = ticker.clientWidth;
+
+    // Breite eines ORIGINAL-Sets (pixelgenau)
+    const oneSetWidth = base.reduce((sum, el) => sum + el.getBoundingClientRect().width, 0)
+      + gap * (base.length - 1);
+
+    // Wir brauchen genug Inhalt, damit niemals "leer" wird:
+    // Ziel: Track mindestens (tickerBreite + 2*SetBreite) haben
+    while (track.scrollWidth < (tickerW + oneSetWidth * 2)) {
       base.forEach(node => track.appendChild(node.cloneNode(true)));
     }
 
-    // Distanz = Breite eines Sets (Pixelgenau)
-    const oneSetWidth = base.reduce((sum, el) => sum + el.offsetWidth, 0)
-      + (base.length - 1) * 14; // 14 = gap aus .ticker-track (gap: 14px)
-
+    // Animation-Distanz = exakt 1 Set Breite
     track.style.setProperty('--ticker-distance', `${oneSetWidth}px`);
   }
 
-  // Nach Layout aufbauen (damit offsetWidth stimmt)
-  window.addEventListener('load', build);
-  window.addEventListener('resize', () => {
-    clearTimeout(window.__tickerResizeT);
-    window.__tickerResizeT = setTimeout(build, 120);
+  // Beim ersten Laden: nach Images warten
+  function buildAfterImages() {
+    const imgs = Array.from(track.querySelectorAll('img'));
+    const pending = imgs.filter(img => !img.complete);
+    if (pending.length === 0) {
+      build();
+      return;
+    }
+    let done = 0;
+    const onDone = () => {
+      done++;
+      if (done >= pending.length) build();
+    };
+    pending.forEach(img => {
+      img.addEventListener('load', onDone, { once: true });
+      img.addEventListener('error', onDone, { once: true });
+    });
+  }
+
+  // Auf mobile resize/orientation changes reagiert besser mit ResizeObserver
+  const ro = new ResizeObserver(() => {
+    clearTimeout(window.__tickerT);
+    window.__tickerT = setTimeout(buildAfterImages, 120);
   });
+  ro.observe(ticker);
+
+  window.addEventListener('load', buildAfterImages);
 })();
 
     // --- Store Smart Redirect (iOS -> App Store, Android -> Play Store, sonst -> leylix.com) ---
