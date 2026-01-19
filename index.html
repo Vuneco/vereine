@@ -1363,66 +1363,73 @@
   });
 })();
 
-// --- FAQ: nur eine Box offen (verhindert "nebenan geht auch auf") ---
-(function(){
-  const faqDetails = document.querySelectorAll('#faq details');
-  faqDetails.forEach(d => {
-    d.addEventListener('toggle', () => {
-      if (!d.open) return;
-      faqDetails.forEach(other => {
-        if (other !== d) other.removeAttribute('open');
-      });
-    });
-  });
-})();
 
-    // --- FAQ Smooth Accordion (stabil, jedes Mal smooth) ---
+    // --- FAQ Smooth Accordion (stabil: öffnet + schließt immer smooth) ---
 (function(){
-  const items = document.querySelectorAll('#faq .faq-item');
+  const items = Array.from(document.querySelectorAll('#faq details.faq-item'));
 
   items.forEach(item => {
     const summary = item.querySelector('summary');
     const content = item.querySelector('.faq-content');
+    if(!summary || !content) return;
 
-    // Initial sicher schließen
+    // Startzustand: geschlossen
+    item.removeAttribute('open');
     content.style.height = '0px';
 
-    summary.addEventListener('click', e => {
+    summary.addEventListener('click', (e) => {
       e.preventDefault();
 
-      const isOpen = item.classList.contains('is-open');
+      const isOpen = item.hasAttribute('open');
 
-      // andere schließen
+      // erst andere schließen (Accordion)
       items.forEach(other => {
-        if(other !== item){
-          closeItem(other);
-        }
+        if(other !== item) closeItem(other);
       });
 
-      if(isOpen){
-        closeItem(item);
-      }else{
-        openItem(item);
-      }
+      // dann dieses togglen
+      if(isOpen) closeItem(item);
+      else openItem(item);
     });
 
     function openItem(el){
       const c = el.querySelector('.faq-content');
-      el.classList.add('is-open');
 
-      // von 0 → echte Höhe
-      c.style.height = c.scrollHeight + 'px';
+      // <details> muss open sein, sonst zeigt der Browser den Content nicht
+      el.setAttribute('open','');
+
+      // von 0 -> Zielhöhe animieren
+      c.style.height = '0px';
+      requestAnimationFrame(() => {
+        c.style.height = c.scrollHeight + 'px';
+      });
+
+      el.classList.add('is-open');
     }
 
     function closeItem(el){
       const c = el.querySelector('.faq-content');
-      el.classList.remove('is-open');
+      if(!el.hasAttribute('open')) {
+        el.classList.remove('is-open');
+        c.style.height = '0px';
+        return;
+      }
 
-      // von aktueller Höhe → 0
+      // von aktueller Höhe -> 0 animieren
       c.style.height = c.scrollHeight + 'px';
       requestAnimationFrame(() => {
         c.style.height = '0px';
       });
+
+      el.classList.remove('is-open');
+
+      // nach der Animation <details> wirklich schließen
+      const onEnd = (ev) => {
+        if(ev.propertyName !== 'height') return;
+        c.removeEventListener('transitionend', onEnd);
+        el.removeAttribute('open');
+      };
+      c.addEventListener('transitionend', onEnd);
     }
   });
 })();
