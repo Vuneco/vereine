@@ -523,7 +523,7 @@
   display:flex;
   flex-direction: column;
   align-items:center;
-  gap: 12px;
+  gap: 14px;
   padding: 18px 18px 16px;
   width: 240px;
   min-height: 200px;
@@ -554,29 +554,11 @@
     0 0 20px rgba(146,193,255,.15);
 }
     .ticker-item img{
-  width: 100%;
-  max-width: 120px;   /* 🔥 kontrollierte Größe */
-  height: auto;       /* 🔥 verhindert Verzerrung */
-
+  width: 78px;
+  height: 78px;
   object-fit: contain;
-
-  border-radius: 26px;
-
-  background: linear-gradient(
-    135deg,
-    rgba(146,193,255,.25),
-    rgba(186,122,255,.18)
-  );
-
-  padding: 20px;
-
-  border: 1px solid rgba(146,193,255,.28);
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.35),
-    inset 0 0 20px rgba(255,255,255,.08);
+  display: block;
 }
-
 .ticker-item span{
   font-size: 14px;
   font-weight: 700;
@@ -618,6 +600,31 @@
   line-height: 1.25;
   cursor: default;
   text-shadow: 0 1px 8px rgba(0,0,0,.28);
+}
+
+    .ticker-item .logo-box{
+  width: 120px;
+  height: 120px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 26px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(146,193,255,.25),
+    rgba(186,122,255,.18)
+  );
+
+  padding: 16px;
+
+  border: 1px solid rgba(146,193,255,.28);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.35),
+    inset 0 0 20px rgba(255,255,255,.08);
 }
 
 
@@ -902,7 +909,8 @@
       <div class="nav-inner">
         <!--Wenn du etwas auskommentieren möchtest-->
         <!--<a class="brand" href="https://leylix.com" aria-label="Leylix Startseite">-->
-          <div class="brand-mark">
+          
+            <div class="logo-box">
           <img src="/media/LeylixLogoWhite512512 (2).png" alt="Leylix Logo">
           </div>
           <div class="brand-name">
