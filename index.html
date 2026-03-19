@@ -13,6 +13,8 @@
   <meta name="description" content="Leylix ist die offene Plattform für Vereine und Veranstalter: Karnevalssitzung, Party, Sommerfest oder Spendenabend. Events erstellen, Tickets verkaufen, Einlass per QR und echte Auswertungen – ohne Verträge, ohne Hürden." />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://verein-events.de/" />
+  <link rel="icon" type="image/png" href="/media/leylix-favicon.png" />
+  <link rel="apple-touch-icon" href="/media/leylix-favicon.png" />
 
 
   <!-- Open Graph -->
@@ -60,7 +62,8 @@
     }
 
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html{min-height:100%;}
+    body{min-height:100vh;}
     body{
   margin:0;
   color:var(--txt);
@@ -71,8 +74,10 @@
     radial-gradient(900px 520px at 50% 90%, rgba(255,255,255,.06), transparent 60%),
     linear-gradient(180deg, var(--bg), var(--bg2));
   overflow-x:hidden;
+  overflow-y:auto;
 
   padding-top: 84px; /* 👈 wichtig für fixed Nav */
+  padding-bottom: 28px;
 }
 
     a{color:inherit}
@@ -580,6 +585,18 @@
   cursor: default;
 }
 
+
+    .partner-note{
+      margin-top:16px;
+      padding:16px 18px;
+      border-radius:20px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 12px 30px rgba(0,0,0,.24);
+    }
+    .partner-note strong{display:block; font-size:16px; margin-bottom:6px;}
+    .partner-note p{margin:0; color:var(--muted); line-height:1.55; font-size:14px;}
+
     @keyframes tickerMove{
   from{ transform: translateX(0); }
   to{ transform: translateX(calc(-1 * var(--ticker-distance, 0px))); }
@@ -803,14 +820,14 @@
 
           <div class="badge">
             <span class="dot"></span>
-            <span>Karneval, Vereinsfeste, Sitzungen, Spendenabende, Partys</span>
+            <span>Junggesellenvereine, Karneval, Vereinsfeste, Sitzungen, Spendenabende</span>
           </div>
 
-          <h1>Dein Verein. Dein Event. Deine Chance.</h1>
+          <h1>Junggesellenverein, Karneval oder Vereinsfest? Macht mehr daraus.</h1>
 
           <p class="sub">
-            Leylix ist die offene Plattform für kleine und große Vereine.
-            Du kannst Events sofort veröffentlichen, Tickets verkaufen, Gäste einlassen und echte Auswertungen erhalten.
+            Leylix ist die offene Plattform für kleine und große Vereine – besonders stark für Junggesellenvereine, Karnevalsvereine und Veranstalter mit echtem Wachstumspotenzial.
+            Ihr könnt Events sofort veröffentlichen, Tickets verkaufen, Gäste einlassen, Sponsoren sichtbar einbinden und zusätzliche Einnahmen aufbauen.
             Ohne Verträge. Ohne Hürden. Ohne „du bist zu klein“.
           </p>
 
@@ -841,7 +858,7 @@
           </div>
 
           <p class="mini-note">
-            Tipp: Diese Seite ist ideal für Karnevalsvereine, Schützenvereine, Sportvereine, Fördervereine, Tanzgarden und alle, die Events professionell aufziehen möchten.
+            Tipp: Diese Seite ist ideal für Junggesellenvereine, Karnevalsvereine, Schützenvereine, Sportvereine, Fördervereine, Tanzgarden und alle, die Events professionell aufziehen und dabei neue Sponsorings und zusätzliche Einnahmen erschließen möchten.
           </p>
         </div>
 
@@ -866,9 +883,9 @@
           </div>
 
           <div class="card" style="margin-top:14px;">
-            <h3 style="margin:0 0 6px 0;">Für euch zählt morgen schon der erste Euro.</h3>
+            <h3 style="margin:0 0 6px 0;">Für Junggesellenvereine und Vereine zählt jeder zusätzliche Euro.</h3>
             <p>
-              Leylix macht es möglich, dass auch kleine Vereine Tickets verkaufen, Einnahmen nachvollziehen und ihre Events sichtbar machen.
+              Leylix macht es möglich, dass auch kleinere Vereine Tickets verkaufen, Sponsoren integrieren, zusätzliche Einnahmen schaffen und ihre Events sichtbar machen.
               Genau dort beginnt Wachstum.
             </p>
           </div>
@@ -881,9 +898,9 @@
   <!-- SECTION: HOW IT WORKS -->
   <section id="so-funktionierts" data-anchor>
     <div class="container">
-      <h2 class="section-title reveal">So funktioniert Leylix für Vereine.</h2>
+      <h2 class="section-title reveal">So funktioniert Leylix für Vereine, Junggesellenvereine und Veranstalter.</h2>
       <p class="section-sub reveal">
-        Du startest nicht mit Technik-Stress, sondern mit einem klaren Ablauf. Event erstellen, Tickets verkaufen, Einlass durchführen und danach Auswertungen nutzen, um das nächste Event noch besser zu machen.
+        Du startest nicht mit Technik-Stress, sondern mit einem klaren Ablauf. Event erstellen, Tickets verkaufen, Sponsoren sichtbar einbinden, Einlass durchführen und danach Auswertungen nutzen, um das nächste Event noch besser und wirtschaftlicher zu machen.
       </p>
 
 
@@ -951,6 +968,11 @@
 
 </div>
       </div>
+
+      <div class="partner-note reveal">
+        <strong>Neu im Fokus: IZMY Entertainment</strong>
+        <p>IZMY Entertainment kann hier direkt unter dem Partner-Banner hervorgehoben werden – ideal für Sichtbarkeit, Vertrauen und starke Sponsoren- oder Event-Kooperationen.</p>
+      </div>
     </div>
   </section>
 
@@ -1012,7 +1034,7 @@
     <div class="container">
       <h2 class="section-title reveal">Partner & Kunden.</h2>
       <p class="section-sub reveal">
-        Unsere aktuellen Partner & Kunden.
+        Unsere aktuellen Partner, Kunden und sichtbaren Netzwerk-Verbindungen rund um Events, Vereine und Wachstum.
       </p>
 
       <div class="ticker reveal" id="partnerTicker" aria-label="Partner Logos">
@@ -1070,6 +1092,13 @@
             Leylix zeigt euch nicht nur Verkäufe, sondern echte Signale: Was funktioniert, wann der Peak war, wie stark der Einlass läuft und welche Ticketarten wirklich ziehen. So wird aus einem Event ein planbares System.
           </p>
 
+          <div class="card" style="margin-top:14px; background: rgba(0,0,0,.18);">
+            <h3 style="margin-top:0;">Besonders stark für Junggesellenvereine.</h3>
+            <p>
+              Ob Kirmes, Zeltparty, Dorfabend oder Karneval: Leylix hilft euch nicht nur beim Ticketverkauf, sondern auch dabei, Sponsoren sichtbar zu platzieren und daraus zusätzliche Einnahmen zu machen.
+            </p>
+          </div>
+
           <div class="stats">
             <div class="stat">
               <strong>Ticketarten-Performance</strong>
@@ -1082,6 +1111,10 @@
             <div class="stat">
               <strong>Verkaufskurve</strong>
               <span>Ihr erkennt Peaks und könnt Kommunikation und Planung beim nächsten Mal optimieren.</span>
+            </div>
+            <div class="stat">
+              <strong>Sponsoren sichtbar einbinden</strong>
+              <span>Partner können präsent platziert werden und schaffen für Vereine zusätzliche Einnahmen.</span>
             </div>
             <div class="stat">
               <strong>Transparenz & Kontrolle</strong>
@@ -1099,8 +1132,8 @@
           <div class="card" style="margin-top:14px; background: rgba(0,0,0,.18);">
             <h3 style="margin-top:0;">Ideal für Karneval.</h3>
             <p>
-              Karneval lebt von echten Menschen, echter Präsenz und guter Organisation.
-              Genau dafür ist Leylix gemacht: Schnell starten, fair verkaufen, sauber einlassen und danach verstehen, was wirklich funktioniert.
+              Karneval und Junggesellenvereine leben von echten Menschen, echter Präsenz und guter Organisation.
+              Genau dafür ist Leylix gemacht: Schnell starten, fair verkaufen, sauber einlassen, Sponsoren einbinden und danach verstehen, was wirklich funktioniert.
             </p>
           </div>
 
@@ -1135,7 +1168,7 @@
               Ladet euch die Leylix App im App Store oder Play Store herunter und erstellt in wenigen Minuten euer erstes Event. Der Erfolg beginnt genau hier.</p>
 
             <div class="app-cta">
-              <a class="btn-store" href="#" id="openLeylixStore" aria-label="Leylix App öffnen">
+              <a class="btn-store js-smart-store-link" href="https://leylix.com" aria-label="Leylix App öffnen">
                 <span>📲 Leylix App öffnen</span>
                 <span class="mini">App Store / Play Store</span>
               </a>
@@ -1200,7 +1233,7 @@
         <div class="cta-actions">
           <!-- Passe diese Links an eure echten Ziele an -->
           <a class="btn primary" href="mailto:info@leylix.com">E-Mail senden</a>
-          <a class="btn" href="https://app.leylix.com" target="_blank" rel="noopener">Zur App</a>
+          <a class="btn js-smart-store-link" href="https://leylix.com" data-store-mode="smart">Zur App</a>
         </div>
       </div>
     </div>
@@ -1441,30 +1474,28 @@
 
     // --- Store Smart Redirect (iOS -> App Store, Android -> Play Store, sonst -> leylix.com) ---
 (function(){
-  const btn = document.getElementById('openLeylixStore');
-  if(!btn) return;
+  const buttons = document.querySelectorAll('.js-smart-store-link');
+  if(!buttons.length) return;
 
-  // TODO: Hier deine echten Links eintragen
   const IOS_APP_STORE_URL = "https://apps.apple.com/ch/app/leylix/id6657989905";
   const ANDROID_PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.leylix&hl=de";
   const FALLBACK_URL = "https://leylix.com";
 
-  btn.addEventListener('click', function(e){
-    e.preventDefault();
+  function getTargetUrl(){
     const ua = navigator.userAgent || navigator.vendor || window.opera;
-
     const isAndroid = /Android/i.test(ua);
-    const isIOS = /iPhone|iPad|iPod/i.test(ua);
+    const isIOS = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && 'ontouchend' in document);
 
-    if(isIOS){
-      window.location.href = IOS_APP_STORE_URL;
-      return;
-    }
-    if(isAndroid){
-      window.location.href = ANDROID_PLAY_STORE_URL;
-      return;
-    }
-    window.location.href = FALLBACK_URL;
+    if(isIOS) return IOS_APP_STORE_URL;
+    if(isAndroid) return ANDROID_PLAY_STORE_URL;
+    return FALLBACK_URL;
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      window.location.href = getTargetUrl();
+    });
   });
 })();
 
