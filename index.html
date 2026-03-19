@@ -1564,13 +1564,12 @@
   const titleEl = document.getElementById('partnerDetailTitle');
   const textEl = document.getElementById('partnerDetailText');
   const linkEl = document.getElementById('partnerDetailLink');
-  const toggles = Array.from(document.querySelectorAll('.partner-toggle[data-partner-key]'));
-  if(!detail || !titleEl || !textEl || !linkEl || !toggles.length) return;
+  if(!detail || !titleEl || !textEl || !linkEl) return;
 
   const partnerContent = {
     innovit: {
       title: 'Innovit AG',
-      text: 'Innovit AG steht für starke, moderne Infrastrukturlösungen mit echtem Praxiswert. Besonders hervorzuheben sind ihre mobilen Rechenzentren und flexibel aufstellbaren Systeme, die dort überzeugen, wo Leistung, Sicherheit und schnelle Einsatzbereitschaft gefragt sind. Genau solche Lösungen sind besonders wertvoll, wenn Technik nicht nur gut klingen, sondern in kurzer Zeit zuverlässig verfügbar sein muss.',
+      text: 'Innovit AG steht für moderne, leistungsstarke Infrastrukturlösungen mit echtem Praxiswert. Besonders hervorzuheben sind ihre mobilen Rechenzentren und flexibel einsetzbaren Systeme, die schnell aufgebaut werden können und dort überzeugen, wo Stabilität, Sicherheit und schnelle Einsatzbereitschaft gefragt sind. Genau solche Lösungen sind stark, wenn Technik nicht nur gut aussehen, sondern in kurzer Zeit zuverlässig verfügbar sein muss.',
       url: 'https://www.innovit.ag/'
     },
     izmy: {
@@ -1580,13 +1579,17 @@
     }
   };
 
+  function getToggles(){
+    return Array.from(document.querySelectorAll('.partner-toggle[data-partner-key]'));
+  }
+
   function closeDetail(){
     detail.classList.remove('is-open');
-    toggles.forEach(el => el.setAttribute('aria-expanded', 'false'));
+    getToggles().forEach(el => el.setAttribute('aria-expanded', 'false'));
   }
 
   function openDetail(toggle, content){
-    toggles.forEach(el => el.setAttribute('aria-expanded', 'false'));
+    getToggles().forEach(el => el.setAttribute('aria-expanded', 'false'));
     toggle.setAttribute('aria-expanded', 'true');
     titleEl.textContent = content.title;
     textEl.textContent = content.text;
@@ -1600,36 +1603,38 @@
     }
 
     detail.classList.add('is-open');
+    requestAnimationFrame(() => {
+      detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
   }
 
-  toggles.forEach(toggle => {
-    toggle.addEventListener('click', function(e){
+  document.addEventListener('click', function(e){
+    const toggle = e.target.closest('.partner-toggle[data-partner-key]');
+    const clickedDetail = e.target.closest('#partnerDetail');
+
+    if(toggle){
       e.preventDefault();
       e.stopPropagation();
-      const key = this.dataset.partnerKey;
+      const key = toggle.dataset.partnerKey;
       const content = partnerContent[key];
       if(!content) return;
 
-      const isAlreadyOpen = this.getAttribute('aria-expanded') === 'true' && detail.classList.contains('is-open');
-
+      const isAlreadyOpen = toggle.getAttribute('aria-expanded') === 'true' && detail.classList.contains('is-open');
       if(isAlreadyOpen){
         closeDetail();
         return;
       }
 
-      openDetail(this, content);
-    });
-  });
+      openDetail(toggle, content);
+      return;
+    }
 
-  document.addEventListener('click', function(e){
-    const clickedToggle = e.target.closest('.partner-toggle[data-partner-key]');
-    const clickedDetail = e.target.closest('#partnerDetail');
-    if(clickedToggle || clickedDetail) return;
+    if(clickedDetail) return;
     closeDetail();
   });
 })();
 
-    // --- Store Smart Redirect (iOS -> App Store, Android -> Play Store, sonst -> leylix.com) ---
+// --- Store Smart Redirect (iOS -> App Store, Android -> Play Store, sonst -> leylix.com) ---
 (function(){
   const buttons = document.querySelectorAll('.js-smart-store-link');
   if(!buttons.length) return;
