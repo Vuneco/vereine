@@ -156,6 +156,52 @@
     
     .btn.ghost{background: transparent}
 
+    .scroll-dock{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scroll-btn{
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(10,14,24,.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: rgba(255,255,255,.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 14px 34px rgba(0,0,0,.35);
+  transition: transform .16s ease, background .16s ease, border-color .16s ease;
+}
+
+.scroll-btn:hover{
+  transform: translateY(-2px);
+  background: rgba(20,28,46,.82);
+  border-color: rgba(146,193,255,.30);
+}
+
+@media (max-width: 700px){
+  .scroll-dock{
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .scroll-btn{
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+}
+
     /* HERO */
     .hero{
       padding: 46px 0 24px;
@@ -752,29 +798,30 @@
 
    /* FAQ */
 .faq{
-  display:grid;
+  display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
-  margin-top: 14px;
-
-  align-items: start; /* 🔥 verhindert "Box daneben wird mit groß" */
+  align-items: start;
 }
+
 @media (max-width: 980px){
-  .faq{grid-template-columns: 1fr;}
+  .faq{
+    grid-template-columns: 1fr;
+  }
+}
+
+.faq-column{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-self: start;
 }
 
 .faq-item{
-  align-self: start; /* Extra-Schutz */
   border-radius: var(--radius);
   background: rgba(255,255,255,.05);
   border:1px solid rgba(255,255,255,.10);
   padding: 14px 14px;
-}
-
-.faq-item summary{
-  cursor:pointer;
-  list-style:none;
-  font-weight:700;
 }
 .faq-item summary::-webkit-details-marker{display:none}
 
@@ -1305,59 +1352,60 @@
       </p>
 
       <div class="faq">
-               <details class="faq-item reveal">
-          <summary>Kann wirklich jeder Verein Events erstellen?</summary>
-          <div class="faq-content">
-            <p>Ja. Leylix ist als offene Plattform gedacht. Ihr könnt kleine und große Events erstellen und direkt veröffentlichen.
-              Ladet euch die Leylix App im App Store oder Play Store herunter und erstellt in wenigen Minuten euer erstes Event. Der Erfolg beginnt genau hier.</p>
+  <div class="faq-column">
+    <details class="faq-item reveal">
+      <summary>Kann wirklich jeder Verein Events erstellen?</summary>
+      <div class="faq-content">
+        <p>Ja. Leylix ist als offene Plattform gedacht. Ihr könnt kleine und große Events erstellen und direkt veröffentlichen.
+          Ladet euch die Leylix App im App Store oder Play Store herunter und erstellt in wenigen Minuten euer erstes Event. Der Erfolg beginnt genau hier.</p>
 
-            <div class="app-cta">
-              <a class="btn-store js-smart-store-link" href="https://leylix.com" aria-label="Leylix App öffnen">
-                <span>📲 Leylix App öffnen</span>
-                <span class="mini">App Store / Play Store</span>
-              </a>
-            </div>
-          </div>
-        </details>
-   
-
-
-        <details class="faq-item reveal">
-          <summary>Welche Ticketarten können wir anbieten?</summary>
-          <div class="faq-content">
-          <p>Ihr könnt Ticketarten wie Stehplatz, Sitzplatz, VIP, Gruppe A/B/C, Frühbucher oder Ehrenkarten definieren und mit einem eigenen Preis versehen.</p>
+        <div class="app-cta">
+          <a class="btn-store js-smart-store-link" href="https://leylix.com" aria-label="Leylix App öffnen">
+            <span>📲 Leylix App öffnen</span>
+            <span class="mini">App Store / Play Store</span>
+          </a>
         </div>
-        </details>
-
-        <details class="faq-item reveal">
-          <summary>Wie funktioniert der Einlass?</summary>
-          <div class="faq-content">
-          <p>Der Einlass kann per QR-Scan erfolgen. Das ist schnell, übersichtlich und reduziert Fehler gegenüber Papierlisten.</p>
-        </div>
-        </details>
-
-        <details class="faq-item reveal">
-          <summary>Bekommen kleine Vereine wirklich Auswertungen?</summary>
-          <div class="faq-content">
-          <p>Ja. Genau das ist der Punkt. Leylix gibt auch kleinen Veranstaltern Transparenz, damit aus dem nächsten Event ein besseres Event wird.</p>
-          </div>
-        </details>
-
-        <details class="faq-item reveal">
-          <summary>Ist Leylix nur für Karneval?</summary>
-          <div class="faq-content">
-          <p>Nein. Karneval ist ein perfekter Start, aber ihr könnt genauso Sommerfeste, Vereinsabende, Spendenabende, Turniere und viele weitere Eventtypen abbilden.</p>
-        </div>
-        </details>
-
-        <details class="faq-item reveal">
-          <summary>Müssen wir eine Website haben?</summary>
-          <div class="faq-content">
-          <p>Nein. Ihr könnt eure Events direkt über Leylix bewerben, Tickets verkaufen und Informationen bereitstellen.</p>
-        </div>
-        </details>
       </div>
-    </div>
+    </details>
+
+    <details class="faq-item reveal">
+      <summary>Wie funktioniert der Einlass?</summary>
+      <div class="faq-content">
+        <p>Der Einlass kann per QR-Scan erfolgen. Das ist schnell, übersichtlich und reduziert Fehler gegenüber Papierlisten.</p>
+      </div>
+    </details>
+
+    <details class="faq-item reveal">
+      <summary>Ist Leylix nur für Karneval?</summary>
+      <div class="faq-content">
+        <p>Nein. Karneval ist ein perfekter Start, aber ihr könnt genauso Sommerfeste, Vereinsabende, Spendenabende, Turniere und viele weitere Eventtypen abbilden.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="faq-column">
+    <details class="faq-item reveal">
+      <summary>Welche Ticketarten können wir anbieten?</summary>
+      <div class="faq-content">
+        <p>Ihr könnt Ticketarten wie Stehplatz, Sitzplatz, VIP, Gruppe A/B/C, Frühbucher oder Ehrenkarten definieren und mit einem eigenen Preis versehen.</p>
+      </div>
+    </details>
+
+    <details class="faq-item reveal">
+      <summary>Bekommen kleine Vereine wirklich Auswertungen?</summary>
+      <div class="faq-content">
+        <p>Ja. Genau das ist der Punkt. Leylix gibt auch kleinen Veranstaltern Transparenz, damit aus dem nächsten Event ein besseres Event wird.</p>
+      </div>
+    </details>
+
+    <details class="faq-item reveal">
+      <summary>Müssen wir eine Website haben?</summary>
+      <div class="faq-content">
+        <p>Nein. Ihr könnt eure Events direkt über Leylix bewerben, Tickets verkaufen und Informationen bereitstellen.</p>
+      </div>
+    </details>
+  </div>
+</div>
   </section>
 
   <!-- CONTACT -->
@@ -1795,6 +1843,31 @@
   });
 })();
 
+    (function(){
+  const topBtn = document.getElementById('scrollTopBtn');
+  const middleBtn = document.getElementById('scrollMiddleBtn');
+  const bottomBtn = document.getElementById('scrollBottomBtn');
+
+  if(topBtn){
+    topBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  if(middleBtn){
+    middleBtn.addEventListener('click', () => {
+      const middle = Math.max(0, (document.documentElement.scrollHeight - window.innerHeight) / 2);
+      window.scrollTo({ top: middle, behavior: 'smooth' });
+    });
+  }
+
+  if(bottomBtn){
+    bottomBtn.addEventListener('click', () => {
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+    });
+  }
+})();
+
   </script>
 <!-- Elion AI Widget -->
 <div id="elion-avatar"></div>
@@ -1802,6 +1875,11 @@
 <div id="elion-chat-box"></div>
 <script src="https://vcard.vuneco.com/elion-loader.js" defer></script>
 
+  <div class="scroll-dock">
+  <button class="scroll-btn" id="scrollTopBtn" aria-label="Nach oben">↑</button>
+  <button class="scroll-btn" id="scrollMiddleBtn" aria-label="Zur Mitte">◎</button>
+  <button class="scroll-btn" id="scrollBottomBtn" aria-label="Nach unten">↓</button>
+</div>
   
 </body>
 </html>
