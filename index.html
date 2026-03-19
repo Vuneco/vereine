@@ -554,8 +554,10 @@
     0 0 20px rgba(146,193,255,.15);
 }
     .ticker-item img{
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  max-width: 120px;   /* 🔥 kontrollierte Größe */
+  height: auto;       /* 🔥 verhindert Verzerrung */
+
   object-fit: contain;
 
   border-radius: 26px;
