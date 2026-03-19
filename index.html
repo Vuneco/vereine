@@ -134,12 +134,21 @@
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
       user-select:none;
     }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.20)}
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(146,193,255,.26), rgba(186,122,255,.20));
-      border-color: rgba(146,193,255,.28);
-    }
-    .btn.primary:hover{background: linear-gradient(135deg, rgba(146,193,255,.32), rgba(186,122,255,.24));}
+    .btn:hover{
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.24);
+}
+    .btn.active{
+  background: linear-gradient(
+    135deg,
+    rgba(146,193,255,.32),
+    rgba(186,122,255,.26)
+  );
+  border-color: rgba(146,193,255,.35);
+  box-shadow: 0 10px 30px rgba(146,193,255,.18);
+}
+    
     .btn.ghost{background: transparent}
 
     /* HERO */
