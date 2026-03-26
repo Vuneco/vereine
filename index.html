@@ -736,12 +736,23 @@
       transform: translateY(-6px);
       transition:max-height .35s ease, opacity .25s ease, transform .25s ease, padding .25s ease;
     }
-    .partner-detail.is-open{
-      max-height:260px;
-      opacity:1;
-      transform: translateY(0);
-      padding:16px 18px;
-    }
+    .partner-detail.is-open {
+    max-height: 450px;       /* Höher ansetzen, damit der Text Platz hat */
+    opacity: 1;
+    transform: translateY(0);
+    padding: 16px 18px;
+    overflow-y: auto;        /* 👈 Das hier aktiviert das Scrollen! */
+}
+
+/* Optional: Damit der Scrollbalken dezent aussieht */
+.partner-detail::-webkit-scrollbar {
+    width: 5px;
+}
+.partner-detail::-webkit-scrollbar-thumb {
+    background: rgba(146, 193, 255, 0.2);
+    border-radius: 10px;
+}
+    
     .partner-detail-head{
       display:flex;
       align-items:center;
